@@ -1,29 +1,26 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
+import SingelProduct from "./SingelProduct";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [product, setProduct]=useState([]);
 
+
+  useEffect(()=>{
+    fetch('fakeData.json')
+    .then(res => res.json())
+    .then(data => setProduct(data))
+  },[])
+  console.log(product);
   return (
     <>
-      {/* <h1 className='text-3xl font-bold'>Hello World</h1> */}
-      <div className="flex justify-between">
-        <div>
-          <div className="w-80">
-            <img className="w-40" src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg" alt="" />
-            <h1 className="text-3xl font-bold">Ters Ters</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat similique laudantium, ab dolores quasi nulla non quia quod animi iure?</p>
-            <div>
-              <h1 className="text-3xl font-bold">520 $</h1>
-              <button>Add To Card</button>
-            </div>
-          </div>
-
-          <div>
-            <img src="" alt="" />
-          </div>
+      <div className="flex justify-around">
+        <div className=" border-2 border-red-400">
+          {
+            product.map((pd, idx) => <SingelProduct product={pd}
+            key={idx}
+            ></SingelProduct>)
+          }
         </div>
         <div className="w-96 shadow-md shadow-gray-300">
           <h1 className="text-3xl text-center font-bold">
